@@ -13,6 +13,8 @@ jobs:
 
       - name: Get Repository Size
         run: |
-          curl -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
-            https://api.github.com/repos/${{ github.repository }} | \
-            jq '.size'
+          # Fetch repo size from GitHub API
+          REPO_SIZE=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+            https://api.github.com/repos/${{ github.repository }} | jq '.size')
+          
+          echo "Repository size: ${REPO_SIZE} KB"
